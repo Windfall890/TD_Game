@@ -5,14 +5,15 @@ public class Bullet : MonoBehaviour {
 
     private GameObject target;
     public GameObject hitEffect;
-    private float speed = 50f;
+    public float speed = 60f;
 
     public void SetTarget(GameObject target)
     {
         this.target = target;
     }
+
     // Update is called once per frame
-    void Update () {
+    public void FixedUpdate () {
         
         if(target == null)
         {
@@ -22,7 +23,7 @@ public class Bullet : MonoBehaviour {
 
         Vector3 direction = target.transform.position - transform.position;
 
-        float frameDistance = speed* Time.deltaTime;
+        float frameDistance = speed* Time.fixedDeltaTime;
 
         if(direction.magnitude <= frameDistance)
         {

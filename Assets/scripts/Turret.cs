@@ -1,24 +1,30 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class Turret : MonoBehaviour {
     
     [Header("Setup Fields")]
     public string enemyTag = "Enemy";
-    public Transform pivot;
     public GameObject bulletPrefab;
-    public Transform firepoint;
     
     [Header("Attributes")]
     public float rotateSpeed = 10;
     public float range = 15f;
     public float fireRate = 1f;
 
+    private Transform pivot;
+    private Transform firepoint;
     private GameObject target;
     private float fireCountdown = 0f;
    
 
     // Use this for initialization
     void Start () {
+        var children = GetComponentsInChildren<Transform>().ToList();
+        pivot = children.First(t => t.name == "Pivot");
+        firepoint = children.First(t => t.name == "FirePoint");
+
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
 	}
 
